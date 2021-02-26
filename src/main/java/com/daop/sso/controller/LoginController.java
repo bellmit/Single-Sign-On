@@ -21,6 +21,11 @@ public class LoginController {
         return ResultVoUtil.success("接口调用成功");
     }
 
+    @PostMapping("/register")
+    public ResultVO register() {
+        return ResultVoUtil.success("注册成功");
+    }
+
     @PostMapping("/loginCheck")
     public ResultVO loginCheck() {
         return ResultVoUtil.success("检查Token");
