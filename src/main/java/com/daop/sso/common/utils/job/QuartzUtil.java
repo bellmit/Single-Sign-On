@@ -4,7 +4,12 @@ import com.daop.sso.common.schedule.JobInfo;
 import com.daop.sso.common.schedule.quartz.QuartzAllowConcurrent;
 import com.daop.sso.common.schedule.quartz.QuartzConstants;
 import com.daop.sso.common.schedule.quartz.QuartzDisallowConcurrent;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @BelongsProject: springboot_learn
@@ -13,7 +18,12 @@ import org.quartz.*;
  * @DATE: 2020-08-10
  * @AUTHOR: Administrator
  **/
+@Component
+@Slf4j
 public class QuartzUtil {
+    @Autowired
+    private static Scheduler scheduler;
+
     /**
      * 判断该定时任务是否支持并发
      *
@@ -26,13 +36,19 @@ public class QuartzUtil {
         return concurrent ? QuartzAllowConcurrent.class : QuartzDisallowConcurrent.class;
     }
 
+    public static void initScheduleJobs(List<JobInfo> jobInfoList) throws SchedulerException {
+        scheduler.clear();
+        for (JobInfo jobInfo : jobInfoList) {
+            createScheduleJob(jobInfo);
+        }
+    }
+
     /**
      * 创建定时任务，定时任务创建
      *
-     * @param scheduler       调度器
      * @param quartzJobInfo 定时任务信息类
      */
-    public static void createScheduleJob(Scheduler scheduler, JobInfo quartzJobInfo) {
+    public static void createScheduleJob(JobInfo quartzJobInfo) {
         try {
             //获取定时任务的执行类
             Class<? extends Job> jobClass = getQuartzJobClass(quartzJobInfo);
@@ -70,6 +86,7 @@ public class QuartzUtil {
             if (quartzJobInfo.getJobStatus().equals(QuartzConstants.JobStatus.PAUSE.getValue())) {
                 scheduler.pauseJob(getJobKey(jobId, jobGroup));
             }
+
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
@@ -86,6 +103,25 @@ public class QuartzUtil {
         return TriggerKey.triggerKey(QuartzConstants.TASK_CLASS_NAME + jobId, jobGroup);
     }
 
+
+    public static void startJob(JobInfo jobInfo) throws SchedulerException {
+        log.info("Job"+jobInfo.getJobId()+"start.");
+        scheduler.resumeJob(getJobKey(jobInfo.getJobId(), jobInfo.getJobGroup()));
+        log.info("Job"+jobInfo.getJobId()+"start.");
+    }
+
+    public static void pauseJob(JobInfo jobInfo) throws SchedulerException {
+        log.info("Job"+jobInfo.getJobId()+"pause.");
+        scheduler.pauseJob(getJobKey(jobInfo.getJobId(), jobInfo.getJobGroup()));
+        log.info("Job"+jobInfo.getJobId()+"paused.");
+    }
+
+    public static void deleteJob(JobInfo jobInfo) throws SchedulerException {
+        log.info("Job"+jobInfo.getJobId()+"delete.");
+        scheduler.deleteJob(getJobKey(jobInfo.getJobId(), jobInfo.getJobGroup()));
+        log.info("Job"+jobInfo.getJobId()+"delete finish.");
+    }
+
     /**
      * 构建任务键对象
      *
@@ -100,7 +136,7 @@ public class QuartzUtil {
     /**
      * 定时任务策略
      *
-     * @param jobInfo           定时任务信息类
+     * @param jobInfo             定时任务信息类
      * @param cronScheduleBuilder 调度器
      * @return 调度器
      */

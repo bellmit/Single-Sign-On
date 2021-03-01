@@ -3,7 +3,6 @@ package com.daop.sso.common.schedule.quartz;
 import com.daop.sso.common.schedule.JobInfo;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +45,7 @@ public abstract class AbstractQuartzJob implements Job {
      * @param jobInfo 定时任务信息类
      */
     protected void before(JobExecutionContext context, JobInfo jobInfo) {
+        log.info("Operations before job execution.......");
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class AbstractQuartzJob implements Job {
      * @param jobInfo 定时任务信息类
      */
     protected void after(JobExecutionContext context, JobInfo jobInfo) {
-
+        log.info("Operations after job execution.......");
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class AbstractQuartzJob implements Job {
      * @param jobInfo 定时任务信息类
      */
     protected void executeFail(JobExecutionContext context, JobInfo jobInfo, Exception e) {
-
+        log.info("Job fail operations");
     }
 
     /**
