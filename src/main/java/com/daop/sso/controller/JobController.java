@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @BelongsProject: spring-sso
@@ -52,7 +53,7 @@ public class JobController {
     @PostConstruct
     public void initJob() throws SchedulerException {
         log.info("Init Jobs.....");
-        List<JobInfo> jobInfos = (List<JobInfo>) jobInfoMap.values();
+        List<JobInfo> jobInfos = new ArrayList<>(jobInfoMap.values());
         QuartzUtil.initScheduleJobs(jobInfos);
     }
 
