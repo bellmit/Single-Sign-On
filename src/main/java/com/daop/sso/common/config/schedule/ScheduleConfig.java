@@ -18,7 +18,6 @@ public class ScheduleConfig {
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
-        factoryBean.setSchedulerName("123456");
         // quartz参数
         Properties prop = new Properties();
         prop.put("org.quartz.scheduler.instanceName", "TestScheduler");

@@ -6,14 +6,17 @@ import com.daop.sso.common.utils.job.QuartzUtil;
 import com.daop.sso.vo.ResultVO;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 @Slf4j
 public class JobController {
+    @Resource
+    private Scheduler scheduler;
     private static Map<Long, JobInfo> jobInfoMap = new HashMap<>(8);
 
     static {
@@ -54,7 +59,7 @@ public class JobController {
     public void initJob() throws SchedulerException {
         log.info("Init Jobs.....");
         List<JobInfo> jobInfos = new ArrayList<>(jobInfoMap.values());
-        QuartzUtil.initScheduleJobs(jobInfos);
+        QuartzUtil.initScheduleJobs(scheduler,jobInfos);
     }
 
     @GetMapping("/jobs")

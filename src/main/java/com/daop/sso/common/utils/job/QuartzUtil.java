@@ -7,8 +7,10 @@ import com.daop.sso.common.schedule.quartz.QuartzDisallowConcurrent;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,7 +23,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class QuartzUtil {
-    @Autowired
     private static Scheduler scheduler;
 
     /**
@@ -36,7 +37,8 @@ public class QuartzUtil {
         return concurrent ? QuartzAllowConcurrent.class : QuartzDisallowConcurrent.class;
     }
 
-    public static void initScheduleJobs(List<JobInfo> jobInfoList) throws SchedulerException {
+    public static void initScheduleJobs(Scheduler scheduler, List<JobInfo> jobInfoList) throws SchedulerException {
+        QuartzUtil.scheduler=scheduler;
         scheduler.clear();
         for (JobInfo jobInfo : jobInfoList) {
             createScheduleJob(jobInfo);
