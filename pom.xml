@@ -14,6 +14,7 @@
     <name>spring-sso</name>
     <description>单点登陆平台模块</description>
     <properties>
+        <skipTest>true</skipTest>
         <java.version>1.8</java.version>
         <swagger.version>3.0.0</swagger.version>
     </properties>
@@ -41,6 +42,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- kafka 依赖-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <!--FastJson 依赖-->
         <dependency>

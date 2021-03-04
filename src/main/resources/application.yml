@@ -3,3 +3,35 @@ server:
 spring:
   application:
     name: single-sign-on-plateform
+  # Kafka 配置
+  kafka:
+    bootstrap-servers: //WINDOWS-O992T4L:9092
+    producer:
+      # 错误发生后的重发次数
+      retries: 1
+      # 同一分区收到多个消息，producer 将其放到同一批次内，
+      # 该参数使用字节数来计算每批次使用的内存大小
+      batch-size: 16384
+      # 设置 producer 内存缓冲区的大小
+      buffer-memory: 5227520
+      # 键序列化方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 值序列化方式
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+    consumer:
+      # 自动提交时间间隔
+      auto-commit-interval: 1s
+      #
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      # 键序列化方式
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 值序列化方式
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      # 在侦听器容器中运行的线程数
+      concurrency: 5
+      # listen 负责 ack 每调用一次，就立即 commit
+      ack-mode: manual_immediate
+      missing-topics-fatal: false
