@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @DATE: 2021-03-04
  * @AUTHOR: Administrator
  **/
-@Component
+//@Component
 @Slf4j
 public class KafkaProducer {
     @Resource

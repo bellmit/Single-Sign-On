@@ -18,7 +18,7 @@ import java.util.Optional;
  * @DATE: 2021-03-04
  * @AUTHOR: Administrator
  **/
-@Component
+//@Component
 @Slf4j
 public class KafkaConsumer {
     @KafkaListener(topics = KafkaProducer.TOPIC_TEST, groupId = KafkaProducer.GROUP_MESSAGE)

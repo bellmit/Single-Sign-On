@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class KafkaController {
-    @Autowired
+//    @Autowired
     private KafkaProducer kafkaProducer;
 
     @GetMapping("/kafka")
