@@ -25,8 +25,8 @@ import java.util.*;
 @RequestMapping("/api")
 @Slf4j
 public class LoginController {
-    public static final Map<String, HttpSession> SESSION_MAP = new HashMap<>(6);
-    public static final Map<String, String> TOKEN_MAP = new HashMap<>(6);
+    static final Map<String, HttpSession> SESSION_MAP = new HashMap<>(6);
+    static final Map<String, String> TOKEN_MAP = new HashMap<>(6);
 
 
     @PostMapping("/login")
@@ -38,12 +38,11 @@ public class LoginController {
     @GetMapping("/register")
     public ResultVO register(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-
         String reqToken = request.getHeader("token");
         if (TOKEN_MAP.containsKey(reqToken)) {
             String sessionKey = TOKEN_MAP.get(reqToken);
             if (SESSION_MAP.containsKey(sessionKey)) {
-                //TODO 根据Token获取Session
+                log.info("Infrastructure");
             }
         }
 

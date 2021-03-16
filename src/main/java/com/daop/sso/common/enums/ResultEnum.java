@@ -40,16 +40,19 @@ public enum ResultEnum {
      */
     GET_ERROR(102, "查询失败"),
     /**
-     *
+     * 参数类型不匹配
      */
     ARGUMENT_TYPE_MISMATCH(102, "参数类型不匹配"),
     /**
-     *
+     * 请求方式错误
      */
     REQ_METHOD_NOT_SUPPORT(102, "请求方式错误"),
-    ;
-    private Integer code;
-    private String msg;
+    /**
+     * 重复性操作
+     */
+    REPETITIVE_OPERATION(104, "重复性操作");
+    private final Integer code;
+    private final String msg;
 
     ResultEnum(Integer code, String msg) {
         this.code = code;

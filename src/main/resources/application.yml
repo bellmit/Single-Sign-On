@@ -35,3 +35,7 @@ spring:
       # listen 负责 ack 每调用一次，就立即 commit
       ack-mode: manual_immediate
       missing-topics-fatal: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
