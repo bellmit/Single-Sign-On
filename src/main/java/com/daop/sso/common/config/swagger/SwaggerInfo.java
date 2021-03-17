@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
  **/
 
 @Data
-@Component
-@ConfigurationProperties(prefix = "swagger")
+//@Component
+//@ConfigurationProperties(prefix = "swagger")
 public class SwaggerInfo {
     /**
      * 标题

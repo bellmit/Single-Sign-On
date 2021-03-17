@@ -25,11 +25,11 @@ import java.util.Collection;
  * @DATE: 2020-11-25
  * @AUTHOR: Daop
  **/
-@Configuration
-@EnableOpenApi
-@AllArgsConstructor
-@Profile({"dev", "test"})
-@EnableConfigurationProperties(SwaggerInfo.class)
+//@Configuration
+//@EnableOpenApi
+//@AllArgsConstructor
+//@Profile({"dev", "test"})
+//@EnableConfigurationProperties(SwaggerInfo.class)
 public class SwaggerConfiguration {
     private SwaggerInfo swaggerInfo;
 

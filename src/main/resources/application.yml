@@ -1,8 +1,8 @@
 server:
   port: 7777
 spring:
-  application:
-    name: single-sign-on-plateform
+  profiles:
+    active: dev
   # Kafka 配置
   kafka:
     bootstrap-servers: //WINDOWS-O992T4L:9092
