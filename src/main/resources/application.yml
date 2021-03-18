@@ -1,8 +1,13 @@
 server:
   port: 7777
 spring:
-  profiles:
-    active: dev
+  application:
+    name: sso
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: test
   # Kafka 配置
   kafka:
     bootstrap-servers: //WINDOWS-O992T4L:9092
